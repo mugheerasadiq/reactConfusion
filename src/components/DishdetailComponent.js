@@ -1,10 +1,7 @@
-import React, {Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, ListGroup, ListGroupItem } from 'reactstrap';
+import React from 'react';
+import { Card, CardImg, CardText, CardBody, CardTitle, ListGroup, ListGroupItem } from 'reactstrap';
 
-class DishDetail extends Component {
-
- 
-    renderDish(dish) {
+    function RenderDish({dish}) {
         if (dish != null)
             return(
                 <Card>
@@ -21,7 +18,7 @@ class DishDetail extends Component {
             );
     }
 
-    renderComment(dish){
+    function RenderComment({dish}){
         if( dish != null){
 
             const COMMENTS = dish.comments.map( (COMMENT) => {
@@ -48,23 +45,21 @@ class DishDetail extends Component {
         }
     }
 
-    render(){
-
+    const DishDetail = (props) => {
         return(
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
-                    {this.renderDish(this.props.selectedDish)}
+                        <RenderDish dish = {props.selectedDish} />
                     </div>
 
                     <div className="col-12 col-md-5 m-1">
-                {this.renderComment(this.props.selectedDish)}
+                        <RenderComment dish={props.selectedDish} />
                     </div>
                 </div>
             </div>
         );
     }
 
-}
 
 export default DishDetail;
