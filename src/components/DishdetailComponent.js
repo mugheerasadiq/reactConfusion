@@ -123,6 +123,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                 <div >
                     <h4>Comments</h4>
                     {COMMENTS}
+                    <CommentForm />
                 </div>
             );
         
@@ -153,7 +154,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                     </div>
                     <div className="col-12 col-md-5 m-1">
                         <RenderComment comments={props.comments} />
-                        <CommentForm />
+                       
                     </div>
                 </div>
                 </div>
