@@ -8,8 +8,9 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { addComment } from '../redux/ActionCreators';
 
-
+//REDUX STATE BECOMES AVAILABLE TO PROPS BY USING THIS FUNCTION THROUGH CONNECT AT THE BOTTOM OF THIS PAGE
 const mapStateToProps = state => {
   return {
     dishes: state.dishes,
@@ -19,13 +20,14 @@ const mapStateToProps = state => {
   }
 }
 
+//BY USING THIS FUNCTAION YOU CAN DISPATCH ACTION CREATORS TO YOUR REDUX STORE
+const mapDispatchToProps = dispatch => ({
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+});
+
+
 //COTAINER COMPONENT
-
 class Main extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
 
@@ -42,7 +44,9 @@ class Main extends Component {
     const DishWithId = ({match}) => {
       return(
           <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-            comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
+            comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} 
+            addComment={this.props.addComment}
+            />
       );
     };
     
@@ -64,4 +68,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
